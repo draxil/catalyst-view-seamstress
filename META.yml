@@ -1,0 +1,16 @@
+--- #YAML:1.0
+name:                Catalyst-View-Seamstress
+version:             2.0
+abstract:            ~
+license:             ~
+author:              
+    - Terrence Brannon (metaperl@gmail.com)
+generated_by:        ExtUtils::MakeMaker version 6.44
+distribution_type:   module
+requires:     
+    Catalyst:                      5.5
+    HTML::Seamstress:              0
+    Template:                      0
+meta-spec:
+    url:     http://module-build.sourceforge.net/META-spec-v1.3.html
+    version: 1.3
