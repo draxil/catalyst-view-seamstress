@@ -5,7 +5,7 @@ WriteMakefile(
     AUTHOR    => 'Terrence Brannon (metaperl@gmail.com)',
     PREREQ_PM => {
         Catalyst          => '5.5',
-	Template          => 0,
+        Template          => 0,
         HTML::Seamstress  => 0,
     },
     VERSION_FROM => 'lib/Catalyst/View/Seamstress.pm'
