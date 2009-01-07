@@ -3,10 +3,19 @@
 use strict;
 use warnings;
 
-use Test::More tests => 5;
+use Test::More;
 use FindBin;
 use lib "$FindBin::Bin/lib";
 use HTML::TreeBuilder;
+
+eval('require Catalyst::Test' );
+if ( $@ ) {
+    plan 'skip_all' => 'No Catalyst::Test' ;
+}
+else {
+    plan 'tests' => 5;
+}
+
 
 use_ok( 'TestApp', 'Can use basic test app' );
 

@@ -8,7 +8,7 @@ use NEXT;
 
 use Data::Dumper;
 
-our $VERSION = '2.1_01';
+our $VERSION = '2.1_02';
 
 
 =head1 NAME
@@ -323,8 +323,8 @@ __END__
 Generally Catalyst::View::Seamstress operates in one of 2 ways: a plain meat
 way or a meat-skeleton way.
 
-Plain meat is simple: the View takes C<<$c->stash->{LOOM} >> and calls
-C<new()> and C<process()> on it and stores the result in C<<$c->response->body>>.
+Plain meat is simple: the View takes C<$c->stash->{LOOM} > and calls
+C<new()> and C<process()> on it and stores the result in C<$c->response->body>.
 
 Meat-skeleton is designed to facilitate the way that most web sites are
 typically designed:
@@ -366,7 +366,7 @@ for this.
 
 =head2 The order of use base is VERY significant
 
-When your helper module creates C<MyApp::V::Seamstress> it is B<very> 
+When your helper module creates C<MyApp::View::Seamstress> it is B<very> 
 important for the C<use base> to look this way:
 
   use base qw(Catalyst::View::Seamstress HTML::Seamstress );
