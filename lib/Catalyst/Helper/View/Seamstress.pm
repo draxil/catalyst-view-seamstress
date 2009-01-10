@@ -78,7 +78,6 @@ sub mk_compclass {
    );
 }
 
-  
 
 =head1 SEE ALSO
 

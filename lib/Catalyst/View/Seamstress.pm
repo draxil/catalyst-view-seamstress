@@ -3,7 +3,7 @@ package Catalyst::View::Seamstress;
 use strict;
 # [10:05:57] <@andyg> Catalyst::View is the correct base class
 use base qw/Catalyst::View/; 
-#use base qw/Catalyst::Base/;
+
 use NEXT;
 
 use Data::Dumper;
@@ -26,11 +26,16 @@ Catalyst::View::Seamstress - HTML::Seamstress View Class for Catalyst
 # optionally edit the skeleton and meat_pack routines
 # in lib/MyApp/View/Seamstress.pm
 
+# create your seamstress template packaged with spkg.pl
+# see HTML::Seamstress
+
 # render view from lib/MyApp.pm or lib/MyApp::C::SomeController.pm
 
     sub message : Global {
         my ( $self, $c ) = @_;
 
+        # LOOM points to our template class made with spkg.pl or
+        # manually:
         $c->stash->{LOOM} = 'html::hello_world';
         $c->stash->{name}     = 'Mister GreenJeans';
         $c->stash->{date}     = 'Today';
@@ -172,24 +177,6 @@ If the LOOM is in fact an ARRAY reference filled with class names we'll send the
 =cut
 
 
-# The constructor for the Seamstress view
-
-sub new {
-    my $self = shift;
-    my $c    = shift;
-
-    $self = $self->NEXT::new(@_);
-#    unshift (@INC, $c->config->{home}) ;
-#Can't locate object method "INC" via package "Path::Class::Dir" at (eval 106) line 3.
-
-
-    #warn "self_config(NEW): " . Dumper($self->config) ;
-    #warn "c_config(NEW): " . Dumper($c->config) ;
-
-    $self;
-  }
-
-
 # process()
 
 # C<< eval-requires >> the module specified in C<< $c->stash->{LOOM} >>. 
@@ -206,25 +193,28 @@ sub page2tree {
 
   my $page_object;
 
+  # IF we've been passed a page class, build an object:
   if (not ref $page_class) {
 
-    eval "require $page_class";
+      # pull in the page class:
+      eval "require $page_class";
 
-    if ($@) {
-      my $error = qq/Couldn't load $page_class -- "$@"/;
-      $c->log->error($error);
-      $c->error($error);
-      return 0;
-    }
+      # emit errors if there were problems with the page_class:
+      if ($@) {
+          my $error = qq/Couldn't load $page_class -- "$@"/;
+          $c->log->error($error);
+          $c->error($error);
+          return 0;
+      }
 
-    $page_object = $page_class->new($c); # e.g html::hello_world->new
-
-  } else {
-
-    $page_object = $page_class;
-
+      $page_object = $page_class->new($c); # e.g html::hello_world->new
+  }
+  # IF we've been passed a page object, just use it:
+  else {
+      $page_object = $page_class;
   }
 
+  # Run the process hook:
   my $tree;  eval { $tree = $page_object->$process_method($c, $c->stash) } ;
 
   if ( my $error = $@ ) {
@@ -243,6 +233,7 @@ sub page2tree {
 
 }
 
+# Main view process hook:
 sub process {
     my ( $self, $c ) = @_;
 
@@ -273,6 +264,7 @@ sub process {
     # render and pack MyApp::View::Seamstress->config->{skeleton}
     # if defined
     #
+
 
     if ($skeleton = $self->config->{skeleton}) {
       $skeleton = $self->page2tree($c, $skeleton);
@@ -318,7 +310,7 @@ sub process {
 ;1;
 __END__
 
-=head1 The meat-skeleton paradigm!
+=head1 The meat-skeleton paradigm
 
 Generally Catalyst::View::Seamstress operates in one of 2 ways: a plain meat
 way or a meat-skeleton way.
@@ -432,9 +424,13 @@ Email the author or ping him on C<#catalyst> on C<irc.perl.org>
 
 Terrence Brannon <metaperl@gmail.com>
 
+With some additional hacking by:
+
+Joe Higton <draxil@cpan.org>
+
 =head1 COPYRIGHT
 
-This program is free software, you can redistribute it and/or modify it 
+This program is free software, you can redistribute it and/or modify it
 under the same terms as Perl itself.
 
 =cut
