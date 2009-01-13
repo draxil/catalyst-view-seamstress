@@ -1,4 +1,5 @@
-2.1_03 - 05 Jan 2008
+2.1 - 13 Jan 2009
       * ->delete our LOOM to free memory
       * added tests
       * Documentation improvements
+      * Lots of re-arranging and gardening
