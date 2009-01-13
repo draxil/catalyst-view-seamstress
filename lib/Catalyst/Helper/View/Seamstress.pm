@@ -81,7 +81,7 @@ sub mk_compclass {
 
 =head1 SEE ALSO
 
-L<Catalyst::Seamstress::View>,
+L<Catalyst::View::Seamstress>,
 L<Catalyst::Manual>, L<Catalyst::Test>, L<Catalyst::Request>,
 L<Catalyst::Response>, L<Catalyst::Helper>,
 

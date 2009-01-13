@@ -4,11 +4,9 @@ use strict;
 # [10:05:57] <@andyg> Catalyst::View is the correct base class
 use base qw/Catalyst::View/; 
 
-use NEXT;
-
 use Data::Dumper;
 
-our $VERSION = '2.1_02';
+our $VERSION = '2.1_03';
 
 
 =head1 NAME
@@ -410,11 +408,9 @@ The best way to see a fully working Seamstress-style Perl class is to
 pull down the working sample app from sourceforge.
 
 A working sample app, which does both simple and
-meat-skeleton rendering is available from
-Sourceforge CVS:
+meat-skeleton rendering is available from github:
 
- cvs -d:pserver:anonymous@seamstress.cvs.sourceforge.net:/cvsroot/seamstress login
- cvs -z3 -d:pserver:anonymous@seamstress.cvs.sourceforge.net:/cvsroot/seamstress co -P catalyst-simpleapp
+ git clone   git://github.com/draxil/catalyst--view--seamstress-sample-app.git
 
 =head1 SUPPORT
 
