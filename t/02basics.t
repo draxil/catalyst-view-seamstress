@@ -11,6 +11,7 @@ use HTML::TreeBuilder;
 eval('require Catalyst::Test' );
 if ( $@ ) {
     plan 'skip_all' => 'No Catalyst::Test' ;
+    exit;
 }
 else {
     plan 'tests' => 5;
@@ -19,7 +20,7 @@ else {
 
 use_ok( 'TestApp', 'Can use basic test app' );
 
-use Catalyst::Test 'TestApp';
+eval(qq{ use Catalyst::Test 'TestApp'; } );
 
 
 # Make a request to analyse:

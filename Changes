@@ -1,5 +1,8 @@
+2.2 - 15 Jan 2009
+      * Test fix ( skip failing Catalyst::Test properly )
 2.1 - 13 Jan 2009
       * ->delete our LOOM to free memory
       * added tests
       * Documentation improvements
       * Lots of re-arranging and gardening
+

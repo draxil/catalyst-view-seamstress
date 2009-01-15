@@ -11,12 +11,20 @@ eval('require Devel::Leak' );
 
 if ( $@ ) {
     plan 'skip_all' => 'No Devel Leak' ;
-}
-else {
-    plan 'tests' => 2;
+    exit;
 }
 
-use Catalyst::Test 'TestApp';
+eval( 'require Catalyst::Test;' );
+
+if ( $@ ) {
+    plan 'skip_all' => 'No Catalyst::Test' ;
+    exit;
+}
+
+plan 'tests' => 2;
+
+
+eval(qq{ use Catalyst::Test 'TestApp'; } );
 my $handle;
 
 my $count = Devel::Leak::NoteSV( $handle );
