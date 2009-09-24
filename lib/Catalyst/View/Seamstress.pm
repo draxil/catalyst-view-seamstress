@@ -235,6 +235,8 @@ sub page2tree {
 sub process {
     my ( $self, $c ) = @_;
 
+    my $body_is_skeleton = 0;
+
     my ($skeleton, $meat, $body) ;
 
     my $loom = $c->stash->{LOOM};
@@ -271,9 +273,7 @@ sub process {
           $self, $c, $c->stash, $meat, $skeleton
        );
 
-      # $body = $self->page2tree($c, $skeleton, 'fixup');
-      # this should be additional controller actions for the request
-
+      $body_is_skeleton = 1;
       $body = $skeleton ;
     }
 
@@ -296,9 +296,9 @@ sub process {
     $c->response->body( $response_body );
 
 
-    # If loom is a class-name we're not doing anything especially fancy, so
-    # we'll just delete it:
-    unless ( ref $loom ) {
+    # we delete the body unless our loom ( or skeleton if we have one) is a reference
+    # which we take as a sign that the user is doing something more elaborate caching or something..
+    unless( (! $body_is_skeleton && ref $loom)  ||  ( $body_is_skeleton && ref $self->config->{skeleton} ) ) {
         $body->delete;
     }
 
